@@ -1,0 +1,3831 @@
+openapi: 3.0.1
+info:
+  description: |+
+    Service name
+
+  title: Workload API reference
+servers:
+- url: /
+paths:
+  /configs/workload/v1/endpoints:
+    get:
+      operationId: ListEndpoint_1
+      parameters:
+      - description: Name of the object, unique within a Namespace for scoped objects.
+          Must start and end with alpha numeric and can have alphanumeric, -, _, .
+          Length of string should be between 2 and 64.
+        in: query
+        name: O.name
+        schema:
+          type: string
+      - description: CreationTime is the creation time of the object. System generated
+          and updated, not updatable by user.
+        in: query
+        name: O.creation-time
+        schema:
+          format: date-time
+          type: string
+      - description: FieldChangeSelector specifies to generate a watch notification
+          on change in field(s) specified.
+        explode: false
+        in: query
+        name: field-change-selector
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workloadEndpointList'
+          description: (empty)
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Bad request parameters
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Unauthorized request
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Conflict while processing request
+        "412":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Pre-condition failed
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Internal server error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Request not implemented
+      summary: List Endpoint objects
+      tags:
+      - workload/v1
+  /configs/workload/v1/endpoints/{O.Name}:
+    get:
+      operationId: GetEndpoint_1
+      parameters:
+      - in: path
+        name: O.Name
+        required: true
+        schema:
+          type: string
+      - description: Kind represents the type of the API object.
+        in: query
+        name: T.kind
+        schema:
+          type: string
+      - description: CreationTime is the creation time of the object. System generated
+          and updated, not updatable by user.
+        in: query
+        name: meta.creation-time
+        schema:
+          format: date-time
+          type: string
+      - description: NodeUUIDList has the list of DSCs where a EP is supposed to go
+          to.
+        explode: false
+        in: query
+        name: spec.node-uuid-list
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workloadEndpoint'
+          description: (empty)
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Bad request parameters
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Unauthorized request
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Conflict while processing request
+        "412":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Pre-condition failed
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Internal server error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Request not implemented
+      summary: Get Endpoint object
+      tags:
+      - workload/v1
+  /configs/workload/v1/tenant/{O.Tenant}/endpoints:
+    get:
+      operationId: ListEndpoint
+      parameters:
+      - in: path
+        name: O.Tenant
+        required: true
+        schema:
+          type: string
+      - description: Name of the object, unique within a Namespace for scoped objects.
+          Must start and end with alpha numeric and can have alphanumeric, -, _, .
+          Length of string should be between 2 and 64.
+        in: query
+        name: O.name
+        schema:
+          type: string
+      - description: CreationTime is the creation time of the object. System generated
+          and updated, not updatable by user.
+        in: query
+        name: O.creation-time
+        schema:
+          format: date-time
+          type: string
+      - description: FieldChangeSelector specifies to generate a watch notification
+          on change in field(s) specified.
+        explode: false
+        in: query
+        name: field-change-selector
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workloadEndpointList'
+          description: (empty)
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Bad request parameters
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Unauthorized request
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Conflict while processing request
+        "412":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Pre-condition failed
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Internal server error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Request not implemented
+      summary: List Endpoint objects
+      tags:
+      - workload/v1
+  /configs/workload/v1/tenant/{O.Tenant}/endpoints/{O.Name}:
+    get:
+      operationId: GetEndpoint
+      parameters:
+      - in: path
+        name: O.Tenant
+        required: true
+        schema:
+          type: string
+      - description: Kind represents the type of the API object.
+        in: query
+        name: T.kind
+        schema:
+          type: string
+      - description: CreationTime is the creation time of the object. System generated
+          and updated, not updatable by user.
+        in: query
+        name: meta.creation-time
+        schema:
+          format: date-time
+          type: string
+      - description: NodeUUIDList has the list of DSCs where a EP is supposed to go
+          to.
+        explode: false
+        in: query
+        name: spec.node-uuid-list
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workloadEndpoint'
+          description: (empty)
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Bad request parameters
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Unauthorized request
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Conflict while processing request
+        "412":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Pre-condition failed
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Internal server error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Request not implemented
+      summary: Get Endpoint object
+      tags:
+      - workload/v1
+  /configs/workload/v1/tenant/{O.Tenant}/workloads:
+    get:
+      operationId: ListWorkload
+      parameters:
+      - in: path
+        name: O.Tenant
+        required: true
+        schema:
+          type: string
+      - description: Name of the object, unique within a Namespace for scoped objects.
+          Must start and end with alpha numeric and can have alphanumeric, -, _, .
+          Length of string should be between 2 and 64.
+        in: query
+        name: O.name
+        schema:
+          type: string
+      - description: CreationTime is the creation time of the object. System generated
+          and updated, not updatable by user.
+        in: query
+        name: O.creation-time
+        schema:
+          format: date-time
+          type: string
+      - description: FieldChangeSelector specifies to generate a watch notification
+          on change in field(s) specified.
+        explode: false
+        in: query
+        name: field-change-selector
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workloadWorkloadList'
+          description: (empty)
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Bad request parameters
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Unauthorized request
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Conflict while processing request
+        "412":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Pre-condition failed
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Internal server error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Request not implemented
+      summary: List Workload objects
+      tags:
+      - workload/v1
+    post:
+      operationId: AddWorkload
+      parameters:
+      - in: path
+        name: O.Tenant
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/workloadWorkload'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workloadWorkload'
+          description: (empty)
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Bad request parameters
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Unauthorized request
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Conflict while processing request
+        "412":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Pre-condition failed
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Internal server error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Request not implemented
+      summary: Create Workload object
+      tags:
+      - workload/v1
+      x-codegen-request-body-name: body
+  /configs/workload/v1/tenant/{O.Tenant}/workloads/{O.Name}:
+    delete:
+      operationId: DeleteWorkload
+      parameters:
+      - in: path
+        name: O.Tenant
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workloadWorkload'
+          description: (empty)
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Bad request parameters
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Unauthorized request
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Conflict while processing request
+        "412":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Pre-condition failed
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Internal server error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Request not implemented
+      summary: Delete Workload object
+      tags:
+      - workload/v1
+    get:
+      operationId: GetWorkload
+      parameters:
+      - in: path
+        name: O.Tenant
+        required: true
+        schema:
+          type: string
+      - description: Kind represents the type of the API object.
+        in: query
+        name: T.kind
+        schema:
+          type: string
+      - description: CreationTime is the creation time of the object. System generated
+          and updated, not updatable by user.
+        in: query
+        name: meta.creation-time
+        schema:
+          format: date-time
+          type: string
+      - description: list of DSCs where propagation did not complete.
+        explode: false
+        in: query
+        name: propagation-status.pending-dscs
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workloadWorkload'
+          description: (empty)
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Bad request parameters
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Unauthorized request
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Conflict while processing request
+        "412":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Pre-condition failed
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Internal server error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Request not implemented
+      summary: Get Workload object
+      tags:
+      - workload/v1
+    put:
+      operationId: UpdateWorkload
+      parameters:
+      - in: path
+        name: O.Tenant
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/workloadWorkload'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workloadWorkload'
+          description: (empty)
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Bad request parameters
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Unauthorized request
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Conflict while processing request
+        "412":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Pre-condition failed
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Internal server error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Request not implemented
+      summary: Update Workload object
+      tags:
+      - workload/v1
+      x-codegen-request-body-name: body
+  /configs/workload/v1/tenant/{O.Tenant}/workloads/{O.Name}/AbortMigration:
+    post:
+      operationId: AbortMigration
+      parameters:
+      - in: path
+        name: O.Tenant
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/workloadWorkload'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workloadWorkload'
+          description: (empty)
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Bad request parameters
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Unauthorized request
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Conflict while processing request
+        "412":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Pre-condition failed
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Internal server error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Request not implemented
+      summary: Abort Workload Migration operation
+      tags:
+      - workload/v1
+      x-codegen-request-body-name: body
+  /configs/workload/v1/tenant/{O.Tenant}/workloads/{O.Name}/FinalSyncMigration:
+    post:
+      operationId: FinalSyncMigration
+      parameters:
+      - in: path
+        name: O.Tenant
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/workloadWorkload'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workloadWorkload'
+          description: (empty)
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Bad request parameters
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Unauthorized request
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Conflict while processing request
+        "412":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Pre-condition failed
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Internal server error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Request not implemented
+      summary: Initiates the final sync for the Workload Migration operation
+      tags:
+      - workload/v1
+      x-codegen-request-body-name: body
+  /configs/workload/v1/tenant/{O.Tenant}/workloads/{O.Name}/FinishMigration:
+    post:
+      operationId: FinishMigration
+      parameters:
+      - in: path
+        name: O.Tenant
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/workloadWorkload'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workloadWorkload'
+          description: (empty)
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Bad request parameters
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Unauthorized request
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Conflict while processing request
+        "412":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Pre-condition failed
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Internal server error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Request not implemented
+      summary: Finish Workload Migration operation
+      tags:
+      - workload/v1
+      x-codegen-request-body-name: body
+  /configs/workload/v1/tenant/{O.Tenant}/workloads/{O.Name}/StartMigration:
+    post:
+      operationId: StartMigration
+      parameters:
+      - in: path
+        name: O.Tenant
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/workloadWorkload'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workloadWorkload'
+          description: (empty)
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Bad request parameters
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Unauthorized request
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Conflict while processing request
+        "412":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Pre-condition failed
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Internal server error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Request not implemented
+      summary: Start Workload Migration operation
+      tags:
+      - workload/v1
+      x-codegen-request-body-name: body
+  /configs/workload/v1/tenant/{O.Tenant}/workloads/{O.Name}/label:
+    post:
+      operationId: LabelWorkload
+      parameters:
+      - in: path
+        name: O.Tenant
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/apiLabel'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workloadWorkload'
+          description: (empty)
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Bad request parameters
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Unauthorized request
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Conflict while processing request
+        "412":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Pre-condition failed
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Internal server error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Request not implemented
+      summary: Label Workload object
+      tags:
+      - workload/v1
+      x-codegen-request-body-name: body
+  /configs/workload/v1/watch/endpoints:
+    get:
+      operationId: WatchEndpoint_1
+      parameters:
+      - description: Name of the object, unique within a Namespace for scoped objects.
+          Must start and end with alpha numeric and can have alphanumeric, -, _, .
+          Length of string should be between 2 and 64.
+        in: query
+        name: O.name
+        schema:
+          type: string
+      - description: CreationTime is the creation time of the object. System generated
+          and updated, not updatable by user.
+        in: query
+        name: O.creation-time
+        schema:
+          format: date-time
+          type: string
+      - description: FieldChangeSelector specifies to generate a watch notification
+          on change in field(s) specified.
+        explode: false
+        in: query
+        name: field-change-selector
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workloadAutoMsgEndpointWatchHelper'
+          description: (streaming responses)
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Bad request parameters
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Unauthorized request
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Conflict while processing request
+        "412":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Pre-condition failed
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Internal server error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Request not implemented
+      summary: Watch Endpoint objects. Supports WebSockets or HTTP long poll
+      tags:
+      - workload/v1
+  /configs/workload/v1/watch/tenant/{O.Tenant}/endpoints:
+    get:
+      operationId: WatchEndpoint
+      parameters:
+      - in: path
+        name: O.Tenant
+        required: true
+        schema:
+          type: string
+      - description: Name of the object, unique within a Namespace for scoped objects.
+          Must start and end with alpha numeric and can have alphanumeric, -, _, .
+          Length of string should be between 2 and 64.
+        in: query
+        name: O.name
+        schema:
+          type: string
+      - description: CreationTime is the creation time of the object. System generated
+          and updated, not updatable by user.
+        in: query
+        name: O.creation-time
+        schema:
+          format: date-time
+          type: string
+      - description: FieldChangeSelector specifies to generate a watch notification
+          on change in field(s) specified.
+        explode: false
+        in: query
+        name: field-change-selector
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workloadAutoMsgEndpointWatchHelper'
+          description: (streaming responses)
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Bad request parameters
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Unauthorized request
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Conflict while processing request
+        "412":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Pre-condition failed
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Internal server error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Request not implemented
+      summary: Watch Endpoint objects. Supports WebSockets or HTTP long poll
+      tags:
+      - workload/v1
+  /configs/workload/v1/watch/tenant/{O.Tenant}/workloads:
+    get:
+      operationId: WatchWorkload
+      parameters:
+      - in: path
+        name: O.Tenant
+        required: true
+        schema:
+          type: string
+      - description: Name of the object, unique within a Namespace for scoped objects.
+          Must start and end with alpha numeric and can have alphanumeric, -, _, .
+          Length of string should be between 2 and 64.
+        in: query
+        name: O.name
+        schema:
+          type: string
+      - description: CreationTime is the creation time of the object. System generated
+          and updated, not updatable by user.
+        in: query
+        name: O.creation-time
+        schema:
+          format: date-time
+          type: string
+      - description: FieldChangeSelector specifies to generate a watch notification
+          on change in field(s) specified.
+        explode: false
+        in: query
+        name: field-change-selector
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workloadAutoMsgWorkloadWatchHelper'
+          description: (streaming responses)
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Bad request parameters
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Unauthorized request
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Conflict while processing request
+        "412":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Pre-condition failed
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Internal server error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Request not implemented
+      summary: Watch Workload objects. Supports WebSockets or HTTP long poll
+      tags:
+      - workload/v1
+  /configs/workload/v1/watch/workloads:
+    get:
+      operationId: WatchWorkload_1
+      parameters:
+      - description: Name of the object, unique within a Namespace for scoped objects.
+          Must start and end with alpha numeric and can have alphanumeric, -, _, .
+          Length of string should be between 2 and 64.
+        in: query
+        name: O.name
+        schema:
+          type: string
+      - description: CreationTime is the creation time of the object. System generated
+          and updated, not updatable by user.
+        in: query
+        name: O.creation-time
+        schema:
+          format: date-time
+          type: string
+      - description: FieldChangeSelector specifies to generate a watch notification
+          on change in field(s) specified.
+        explode: false
+        in: query
+        name: field-change-selector
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workloadAutoMsgWorkloadWatchHelper'
+          description: (streaming responses)
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Bad request parameters
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Unauthorized request
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Conflict while processing request
+        "412":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Pre-condition failed
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Internal server error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Request not implemented
+      summary: Watch Workload objects. Supports WebSockets or HTTP long poll
+      tags:
+      - workload/v1
+  /configs/workload/v1/workloads:
+    get:
+      operationId: ListWorkload_1
+      parameters:
+      - description: Name of the object, unique within a Namespace for scoped objects.
+          Must start and end with alpha numeric and can have alphanumeric, -, _, .
+          Length of string should be between 2 and 64.
+        in: query
+        name: O.name
+        schema:
+          type: string
+      - description: CreationTime is the creation time of the object. System generated
+          and updated, not updatable by user.
+        in: query
+        name: O.creation-time
+        schema:
+          format: date-time
+          type: string
+      - description: FieldChangeSelector specifies to generate a watch notification
+          on change in field(s) specified.
+        explode: false
+        in: query
+        name: field-change-selector
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workloadWorkloadList'
+          description: (empty)
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Bad request parameters
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Unauthorized request
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Conflict while processing request
+        "412":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Pre-condition failed
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Internal server error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Request not implemented
+      summary: List Workload objects
+      tags:
+      - workload/v1
+    post:
+      operationId: AddWorkload_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/workloadWorkload'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workloadWorkload'
+          description: (empty)
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Bad request parameters
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Unauthorized request
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Conflict while processing request
+        "412":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Pre-condition failed
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Internal server error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Request not implemented
+      summary: Create Workload object
+      tags:
+      - workload/v1
+      x-codegen-request-body-name: body
+  /configs/workload/v1/workloads/{O.Name}:
+    delete:
+      operationId: DeleteWorkload_1
+      parameters:
+      - in: path
+        name: O.Name
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workloadWorkload'
+          description: (empty)
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Bad request parameters
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Unauthorized request
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Conflict while processing request
+        "412":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Pre-condition failed
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Internal server error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Request not implemented
+      summary: Delete Workload object
+      tags:
+      - workload/v1
+    get:
+      operationId: GetWorkload_1
+      parameters:
+      - in: path
+        name: O.Name
+        required: true
+        schema:
+          type: string
+      - description: Kind represents the type of the API object.
+        in: query
+        name: T.kind
+        schema:
+          type: string
+      - description: CreationTime is the creation time of the object. System generated
+          and updated, not updatable by user.
+        in: query
+        name: meta.creation-time
+        schema:
+          format: date-time
+          type: string
+      - description: list of DSCs where propagation did not complete.
+        explode: false
+        in: query
+        name: propagation-status.pending-dscs
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workloadWorkload'
+          description: (empty)
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Bad request parameters
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Unauthorized request
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Conflict while processing request
+        "412":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Pre-condition failed
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Internal server error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Request not implemented
+      summary: Get Workload object
+      tags:
+      - workload/v1
+    put:
+      operationId: UpdateWorkload_1
+      parameters:
+      - in: path
+        name: O.Name
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/workloadWorkload'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workloadWorkload'
+          description: (empty)
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Bad request parameters
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Unauthorized request
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Conflict while processing request
+        "412":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Pre-condition failed
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Internal server error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Request not implemented
+      summary: Update Workload object
+      tags:
+      - workload/v1
+      x-codegen-request-body-name: body
+  /configs/workload/v1/workloads/{O.Name}/AbortMigration:
+    post:
+      operationId: AbortMigration_1
+      parameters:
+      - in: path
+        name: O.Name
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/workloadWorkload'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workloadWorkload'
+          description: (empty)
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Bad request parameters
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Unauthorized request
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Conflict while processing request
+        "412":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Pre-condition failed
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Internal server error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Request not implemented
+      summary: Abort Workload Migration operation
+      tags:
+      - workload/v1
+      x-codegen-request-body-name: body
+  /configs/workload/v1/workloads/{O.Name}/FinalSyncMigration:
+    post:
+      operationId: FinalSyncMigration_1
+      parameters:
+      - in: path
+        name: O.Name
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/workloadWorkload'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workloadWorkload'
+          description: (empty)
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Bad request parameters
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Unauthorized request
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Conflict while processing request
+        "412":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Pre-condition failed
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Internal server error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Request not implemented
+      summary: Initiates the final sync for the Workload Migration operation
+      tags:
+      - workload/v1
+      x-codegen-request-body-name: body
+  /configs/workload/v1/workloads/{O.Name}/FinishMigration:
+    post:
+      operationId: FinishMigration_1
+      parameters:
+      - in: path
+        name: O.Name
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/workloadWorkload'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workloadWorkload'
+          description: (empty)
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Bad request parameters
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Unauthorized request
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Conflict while processing request
+        "412":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Pre-condition failed
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Internal server error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Request not implemented
+      summary: Finish Workload Migration operation
+      tags:
+      - workload/v1
+      x-codegen-request-body-name: body
+  /configs/workload/v1/workloads/{O.Name}/StartMigration:
+    post:
+      operationId: StartMigration_1
+      parameters:
+      - in: path
+        name: O.Name
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/workloadWorkload'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workloadWorkload'
+          description: (empty)
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Bad request parameters
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Unauthorized request
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Conflict while processing request
+        "412":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Pre-condition failed
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Internal server error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Request not implemented
+      summary: Start Workload Migration operation
+      tags:
+      - workload/v1
+      x-codegen-request-body-name: body
+  /configs/workload/v1/workloads/{O.Name}/label:
+    post:
+      operationId: LabelWorkload_1
+      parameters:
+      - in: path
+        name: O.Name
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/apiLabel'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/workloadWorkload'
+          description: (empty)
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Bad request parameters
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Unauthorized request
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Conflict while processing request
+        "412":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Pre-condition failed
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Internal server error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/apiStatus'
+          description: Request not implemented
+      summary: Label Workload object
+      tags:
+      - workload/v1
+      x-codegen-request-body-name: body
+components:
+  schemas:
+    apiAggWatchOptions:
+      properties:
+        meta:
+          $ref: '#/components/schemas/apiObjectMeta'
+        watch-options:
+          items:
+            $ref: '#/components/schemas/apiKindWatchOptions'
+          type: array
+      type: object
+    apiKindWatchOptions:
+      properties:
+        group:
+          type: string
+        kind:
+          type: string
+        options:
+          $ref: '#/components/schemas/apiListWatchOptions'
+      type: object
+    apiLabel:
+      description: Label is the input for label operations.
+      properties:
+        api-version:
+          type: string
+        creation-time:
+          format: date-time
+          type: string
+        generation-id:
+          type: string
+        kind:
+          type: string
+        labels:
+          additionalProperties:
+            type: string
+          type: object
+        mod-time:
+          format: date-time
+          type: string
+        name:
+          description: Must start and end with alpha numeric and can have alphanumeric,
+            -, _, . Length of string should be between 2 and 64.
+          maxLength: 64
+          minLength: 2
+          pattern: ^[a-zA-Z0-9][\w\-\.]*[a-zA-Z0-9]$
+          type: string
+        namespace:
+          description: Must start and end with alpha numeric and can have alphanumeric,
+            -, _, . Length of string should be between 2 and 64.
+          maxLength: 64
+          minLength: 2
+          pattern: ^[a-zA-Z0-9][\w\-\.]*[a-zA-Z0-9]$
+          type: string
+        resource-version:
+          type: string
+        self-link:
+          type: string
+        tenant:
+          description: Must be alpha-numerics. Length of string should be between
+            1 and 48.
+          maxLength: 48
+          minLength: 1
+          pattern: ^[a-zA-Z0-9]+$
+          type: string
+        uuid:
+          type: string
+      type: object
+    apiListMeta:
+      description: ListMeta contains the metadata for list of objects.
+      example:
+        resource-version: resource-version
+        total-count: 1
+      properties:
+        resource-version:
+          description: Resource version of object store at the time of list generation.
+          type: string
+        total-count:
+          description: TotalCount is the total count of results (non paginated) that
+            the server holds.
+          format: int32
+          type: integer
+      type: object
+    apiListWatchOptions:
+      properties:
+        creation-time:
+          format: date-time
+          type: string
+        field-change-selector:
+          description: FieldChangeSelector specifies to generate a watch notification
+            on change in field(s) specified.
+          items:
+            type: string
+          type: array
+        field-selector:
+          description: FieldSelector to select on field values in list or watch results.
+          type: string
+        from:
+          description: From represents the start index number (1 based - first object
+            starts from index 1), of the results list. The results returned would
+            be in the range [from ... (from + (max-results - 1))]. If From = 0, the
+            server will attempt to return all the results in the list without pagination.
+          format: int32
+          type: integer
+        generation-id:
+          type: string
+        label-selector:
+          description: LabelSelector to select on labels in list or watch results.
+          type: string
+        labels:
+          additionalProperties:
+            type: string
+          type: object
+        max-results:
+          description: MaxResults is the maximum number of results to be returned
+            as part of the response, per page If MaxResults is more than the maximum
+            number of results per page supported by the server, the server will return
+            an err If MaxResults is 0, the server will return all the results without
+            pagination.
+          format: int32
+          type: integer
+        meta-only:
+          default: false
+          description: If MetaOnly is set to true, the watch event notification that
+            matches the watch criteria will not contain the full object. It will only
+            contain the information about the object that changed, i.e. which object
+            and what changed. MetaOnly is not set by default.
+          format: boolean
+          type: boolean
+        mod-time:
+          format: date-time
+          type: string
+        name:
+          description: Must start and end with alpha numeric and can have alphanumeric,
+            -, _, . Length of string should be between 2 and 64.
+          maxLength: 64
+          type: string
+        namespace:
+          description: Must start and end with alpha numeric and can have alphanumeric,
+            -, _, . Length of string should be between 2 and 64.
+          maxLength: 64
+          type: string
+        resource-version:
+          type: string
+        self-link:
+          type: string
+        sort-order:
+          default: none
+          description: order to sort List results in.
+          enum:
+          - none
+          - by-name
+          - by-name-reverse
+          - by-version
+          - by-version-reverse
+          - by-creation-time
+          - by-creation-time-reverse
+          - by-mod-time
+          - by-mod-time-reverse
+          type: string
+          x-ui-hints:
+            by-creation-time: By Creation Time
+            by-creation-time-reverse: By Creation Time Reverse
+            by-mod-time: By Modification Time
+            by-mod-time-reverse: By Modification Time Reverse
+            by-name: By Name
+            by-name-reverse: By Name Reverse
+            by-version: By Version
+            by-version-reverse: By Version Reverse
+            none: None
+        tenant:
+          description: Must be alpha-numerics. Length of string should be between
+            1 and 48.
+          maxLength: 48
+          type: string
+        uuid:
+          type: string
+      type: object
+    apiObjectMeta:
+      description: ObjectMeta contains metadata that all objects stored in kvstore
+        must have.
+      example:
+        mod-time: 2000-01-23T04:56:07.000+00:00
+        generation-id: generation-id
+        resource-version: resource-version
+        creation-time: 2000-01-23T04:56:07.000+00:00
+        name: name
+        namespace: namespace
+        self-link: self-link
+        uuid: uuid
+        tenant: tenant
+        labels:
+          key: labels
+      properties:
+        creation-time:
+          description: System generated and updated, not updatable by user.
+          format: date-time
+          title: CreationTime is the creation time of the object
+          type: string
+        generation-id:
+          description: This is incremented anytime there is an update to the user
+            intent, including Spec update and any update to ObjectMeta. System generated
+            and updated, not updatable by user.
+          title: GenerationID is the generation Id for the object
+          type: string
+        labels:
+          additionalProperties:
+            type: string
+          title: Labels are arbitrary (key,value) pairs associated with any object
+          type: object
+        mod-time:
+          description: System generated and updated, not updatable by user.
+          format: date-time
+          title: ModTime is the Last Modification time of the object
+          type: string
+        name:
+          description: Must start and end with alpha numeric and can have alphanumeric,
+            -, _, . Length of string should be between 2 and 64.
+          maxLength: 64
+          title: Name of the object, unique within a Namespace for scoped objects
+          type: string
+        namespace:
+          description: Namespace of the object, for scoped objects. Must start and
+            end with alpha numeric and can have alphanumeric, -, _, . Length of string
+            should be between 2 and 64.
+          maxLength: 64
+          type: string
+        resource-version:
+          description: This is updated anytime there is any change to the object.
+            System generated and updated, not updatable by user.
+          title: Resource version in the object store
+          type: string
+        self-link:
+          description: 'When the object is served from the API-GW it is the URI path.
+            Example: - "/v1/tenants/tenants/tenant2" System generated and updated,
+            not updatable by user.'
+          title: SelfLink is a link for accessing this object
+          type: string
+        tenant:
+          description: This can be automatically filled in many cases based on the
+            tenant the user, who created the object, belongs to. Must be alpha-numerics.
+            Length of string should be between 1 and 48.
+          maxLength: 48
+          title: Tenant to which the object belongs to
+          type: string
+        uuid:
+          description: This is generated on creation of the object. System generated,
+            not updatable by user.
+          title: UUID is the unique identifier for the object
+          type: string
+      type: object
+    apiObjectRef:
+      description: ObjectRef contains identifying information about an object.
+      properties:
+        kind:
+          description: Kind represents the type of the API object.
+          type: string
+        name:
+          description: Name of the object, unique within a Namespace for scoped objects.
+          type: string
+        namespace:
+          description: Namespace of the object, for scoped objects.
+          type: string
+        tenant:
+          description: Tenant of the object.
+          type: string
+        uri:
+          description: URI is a link to accessing the referenced object.
+          type: string
+      type: object
+    apiStatus:
+      description: Status is returned for calls that dont return objects.
+      properties:
+        api-version:
+          type: string
+        code:
+          description: Code is the HTTP status code.
+          format: int32
+          type: integer
+        kind:
+          type: string
+        message:
+          description: Message contains human readable form of the error.
+          items:
+            type: string
+          type: array
+        object-ref:
+          $ref: '#/components/schemas/apiObjectRef'
+        result:
+          $ref: '#/components/schemas/apiStatusResult'
+      type: object
+    apiStatusResult:
+      description: StatusResult contains possible statuses for a NIC.
+      properties:
+        Str:
+          type: string
+      type: object
+    apiTimestamp:
+      properties:
+        nanos:
+          format: int32
+          type: integer
+        seconds:
+          format: int64
+          type: string
+      type: object
+    apiTypeMeta:
+      description: TypeMeta contains the metadata about kind and version for all API
+        objects.
+      properties:
+        api-version:
+          description: APIVersion defines the version of the API object. This can
+            only be set by the server.
+          type: string
+        kind:
+          description: Kind represents the type of the API object.
+          type: string
+      type: object
+    apiWatchControl:
+      properties:
+        code:
+          format: int64
+          type: integer
+        message:
+          type: string
+      type: object
+    apiWatchEvent:
+      properties:
+        control:
+          $ref: '#/components/schemas/apiWatchControl'
+        object:
+          $ref: '#/components/schemas/googleprotobufAny'
+        type:
+          type: string
+      type: object
+    apiWatchEventList:
+      properties:
+        events:
+          items:
+            $ref: '#/components/schemas/apiWatchEvent'
+          type: array
+      type: object
+    googleprotobufAny:
+      description: '`Any` contains an arbitrary serialized protocol buffer message
+        along with a URL that describes the type of the serialized message. Protobuf
+        library provides support to pack/unpack Any values in the form of utility
+        functions or additional generated methods of the Any type. Example 1: Pack
+        and unpack a message in C++. Foo foo = ...; Any any; any.PackFrom(foo); ...
+        if (any.UnpackTo(&foo)) { ... } Example 2: Pack and unpack a message in Java.
+        Foo foo = ...; Any any = Any.pack(foo); ... if (any.is(Foo.class)) { foo =
+        any.unpack(Foo.class); } Example 3: Pack and unpack a message in Python. foo
+        = Foo(...) any = Any() any.Pack(foo) ... if any.Is(Foo.DESCRIPTOR): any.Unpack(foo)
+        ... Example 4: Pack and unpack a message in Go foo := &pb.Foo{...} any, err
+        := ptypes.MarshalAny(foo) ... foo := &pb.Foo{} if err := ptypes.UnmarshalAny(any,
+        foo); err != nil { ... } The pack methods provided by protobuf library will
+        by default use ''type.googleapis.com/full.type.name'' as the type URL and
+        the unpack methods only use the fully qualified type name after the last ''/''
+        in the type URL, for example "foo.bar.com/x/y.z" will yield type name "y.z".
+        JSON ==== The JSON representation of an `Any` value uses the regular representation
+        of the deserialized, embedded message, with an additional field `@type` which
+        contains the type URL. Example: package google.profile; message Person { string
+        first_name = 1; string last_name = 2; } { "@type": "type.googleapis.com/google.profile.Person",
+        "firstName": <string>, "lastName": <string> } If the embedded message type
+        is well-known and has a custom JSON representation, that representation will
+        be embedded adding a field `value` which holds the custom JSON in addition
+        to the `@type` field. Example (for message [google.protobuf.Duration][]):
+        { "@type": "type.googleapis.com/google.protobuf.Duration", "value": "1.212s"
+        }.'
+      properties:
+        type_url:
+          description: 'A URL/resource name that uniquely identifies the type of the
+            serialized protocol buffer message. This string must contain at least
+            one "/" character. The last segment of the URL''s path must represent
+            the fully qualified name of the type (as in `path/google.protobuf.Duration`).
+            The name should be in a canonical form (e.g., leading "." is not accepted).
+            In practice, teams usually precompile into the binary all types that they
+            expect it to use in the context of Any. However, for URLs which use the
+            scheme `http`, `https`, or no scheme, one can optionally set up a type
+            server that maps type URLs to message definitions as follows: * If no
+            scheme is provided, `https` is assumed. * An HTTP GET on the URL must
+            yield a [google.protobuf.Type][] value in binary format, or produce an
+            error. * Applications are allowed to cache lookup results based on the
+            URL, or have them precompiled into a binary to avoid any lookup. Therefore,
+            binary compatibility needs to be preserved on changes to types. (Use versioned
+            type names to manage breaking changes.) Note: this functionality is not
+            currently available in the official protobuf release, and it is not used
+            for type URLs beginning with type.googleapis.com. Schemes other than `http`,
+            `https` (or the empty scheme) might be used with implementation specific
+            semantics.'
+          type: string
+        value:
+          description: Must be a valid serialized protocol buffer of the above specified
+            type.
+          format: byte
+          pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
+          type: string
+      type: object
+    securityDSCStatus:
+      example:
+        dsc-id: dsc-id
+        dsc-info-status: dsc-info-status
+      properties:
+        dsc-id:
+          description: DSC ID for which the agent error or warning is issued.
+          type: string
+        dsc-info-status:
+          description: InfoStatus contains agent message the operation is failed or
+            warning is issued.
+          type: string
+      type: object
+    securityPropagationStatus:
+      example:
+        dsc-status:
+        - dsc-id: dsc-id
+          dsc-info-status: dsc-info-status
+        - dsc-id: dsc-id
+          dsc-info-status: dsc-info-status
+        generation-id: generation-id
+        pending: 7
+        pending-dscs:
+        - pending-dscs
+        - pending-dscs
+        min-version: min-version
+        updated: 9
+        status: status
+      properties:
+        dsc-status:
+          description: list of DSCs status.
+          items:
+            $ref: '#/components/schemas/securityDSCStatus'
+          type: array
+        generation-id:
+          description: The Generation ID this status is for.
+          type: string
+        min-version:
+          description: The Version running on the slowest Naples.
+          type: string
+        pending:
+          description: Number of Naples pending. If this is 0 it can be assumed that
+            everything is up to date.
+          format: int32
+          type: integer
+        pending-dscs:
+          description: list of DSCs where propagation did not complete.
+          items:
+            type: string
+          type: array
+        status:
+          description: Textual description of propagation status.
+          type: string
+        updated:
+          description: The number of Naples that this version has already been pushed
+            to.
+          format: int32
+          type: integer
+      type: object
+    workloadAutoMsgEndpointWatchHelper:
+      description: AutoMsgEndpointWatchHelper is a wrapper object for watch events
+        for Endpoint objects.
+      example:
+        events:
+        - type: type
+          object:
+            api-version: api-version
+            kind: kind
+            meta:
+              mod-time: 2000-01-23T04:56:07.000+00:00
+              generation-id: generation-id
+              resource-version: resource-version
+              creation-time: 2000-01-23T04:56:07.000+00:00
+              name: name
+              namespace: namespace
+              self-link: self-link
+              uuid: uuid
+              tenant: tenant
+              labels:
+                key: labels
+            spec:
+              node-uuid-list:
+              - node-uuid-list
+              - node-uuid-list
+              node-uuid: node-uuid
+              homing-host-addr: homing-host-addr
+              type: l2
+              micro-segment-vlan: 0
+            status:
+              SecurityGroups:
+              - SecurityGroups
+              - SecurityGroups
+              ipv6-gateways:
+              - ipv6-gateways
+              - ipv6-gateways
+              mac-address: aabb.ccdd.0000, aabb.ccdd.0000, aabb.ccdd.0000
+              node-uuid: node-uuid
+              ipv4-gateway: ipv4-gateway
+              workload-name: workload-name
+              homing-host-addr: homing-host-addr
+              ipv6-address: ipv6-address
+              ipv6-addresses:
+              - ipv6-addresses
+              - ipv6-addresses
+              network: network
+              EndpointState: EndpointState
+              homing-host-name: homing-host-name
+              ipv4-addresses:
+              - ipv4-addresses
+              - ipv4-addresses
+              node-uuid-list:
+              - node-uuid-list
+              - node-uuid-list
+              ipv4-address: ipv4-address
+              ipv4-gateways:
+              - ipv4-gateways
+              - ipv4-gateways
+              mirror-sessions:
+              - mirror-sessions
+              - mirror-sessions
+              migration:
+                status: none
+              workload-attributes:
+                key: workload-attributes
+              workload-names:
+              - workload-names
+              - workload-names
+              ipv6-gateway: ipv6-gateway
+              micro-segment-vlan: 6
+        - type: type
+          object:
+            api-version: api-version
+            kind: kind
+            meta:
+              mod-time: 2000-01-23T04:56:07.000+00:00
+              generation-id: generation-id
+              resource-version: resource-version
+              creation-time: 2000-01-23T04:56:07.000+00:00
+              name: name
+              namespace: namespace
+              self-link: self-link
+              uuid: uuid
+              tenant: tenant
+              labels:
+                key: labels
+            spec:
+              node-uuid-list:
+              - node-uuid-list
+              - node-uuid-list
+              node-uuid: node-uuid
+              homing-host-addr: homing-host-addr
+              type: l2
+              micro-segment-vlan: 0
+            status:
+              SecurityGroups:
+              - SecurityGroups
+              - SecurityGroups
+              ipv6-gateways:
+              - ipv6-gateways
+              - ipv6-gateways
+              mac-address: aabb.ccdd.0000, aabb.ccdd.0000, aabb.ccdd.0000
+              node-uuid: node-uuid
+              ipv4-gateway: ipv4-gateway
+              workload-name: workload-name
+              homing-host-addr: homing-host-addr
+              ipv6-address: ipv6-address
+              ipv6-addresses:
+              - ipv6-addresses
+              - ipv6-addresses
+              network: network
+              EndpointState: EndpointState
+              homing-host-name: homing-host-name
+              ipv4-addresses:
+              - ipv4-addresses
+              - ipv4-addresses
+              node-uuid-list:
+              - node-uuid-list
+              - node-uuid-list
+              ipv4-address: ipv4-address
+              ipv4-gateways:
+              - ipv4-gateways
+              - ipv4-gateways
+              mirror-sessions:
+              - mirror-sessions
+              - mirror-sessions
+              migration:
+                status: none
+              workload-attributes:
+                key: workload-attributes
+              workload-names:
+              - workload-names
+              - workload-names
+              ipv6-gateway: ipv6-gateway
+              micro-segment-vlan: 6
+      properties:
+        events:
+          items:
+            $ref: '#/components/schemas/workloadAutoMsgEndpointWatchHelperWatchEvent'
+          type: array
+      type: object
+    workloadAutoMsgEndpointWatchHelperWatchEvent:
+      example:
+        type: type
+        object:
+          api-version: api-version
+          kind: kind
+          meta:
+            mod-time: 2000-01-23T04:56:07.000+00:00
+            generation-id: generation-id
+            resource-version: resource-version
+            creation-time: 2000-01-23T04:56:07.000+00:00
+            name: name
+            namespace: namespace
+            self-link: self-link
+            uuid: uuid
+            tenant: tenant
+            labels:
+              key: labels
+          spec:
+            node-uuid-list:
+            - node-uuid-list
+            - node-uuid-list
+            node-uuid: node-uuid
+            homing-host-addr: homing-host-addr
+            type: l2
+            micro-segment-vlan: 0
+          status:
+            SecurityGroups:
+            - SecurityGroups
+            - SecurityGroups
+            ipv6-gateways:
+            - ipv6-gateways
+            - ipv6-gateways
+            mac-address: aabb.ccdd.0000, aabb.ccdd.0000, aabb.ccdd.0000
+            node-uuid: node-uuid
+            ipv4-gateway: ipv4-gateway
+            workload-name: workload-name
+            homing-host-addr: homing-host-addr
+            ipv6-address: ipv6-address
+            ipv6-addresses:
+            - ipv6-addresses
+            - ipv6-addresses
+            network: network
+            EndpointState: EndpointState
+            homing-host-name: homing-host-name
+            ipv4-addresses:
+            - ipv4-addresses
+            - ipv4-addresses
+            node-uuid-list:
+            - node-uuid-list
+            - node-uuid-list
+            ipv4-address: ipv4-address
+            ipv4-gateways:
+            - ipv4-gateways
+            - ipv4-gateways
+            mirror-sessions:
+            - mirror-sessions
+            - mirror-sessions
+            migration:
+              status: none
+            workload-attributes:
+              key: workload-attributes
+            workload-names:
+            - workload-names
+            - workload-names
+            ipv6-gateway: ipv6-gateway
+            micro-segment-vlan: 6
+      properties:
+        object:
+          $ref: '#/components/schemas/workloadEndpoint'
+        type:
+          type: string
+      type: object
+    workloadAutoMsgWorkloadWatchHelper:
+      description: AutoMsgWorkloadWatchHelper is a wrapper object for watch events
+        for Workload objects.
+      example:
+        events:
+        - type: type
+          object:
+            api-version: api-version
+            kind: kind
+            meta:
+              mod-time: 2000-01-23T04:56:07.000+00:00
+              generation-id: generation-id
+              resource-version: resource-version
+              creation-time: 2000-01-23T04:56:07.000+00:00
+              name: name
+              namespace: namespace
+              self-link: self-link
+              uuid: uuid
+              tenant: tenant
+              labels:
+                key: labels
+            spec:
+              interfaces:
+              - external-vlan: 327
+                vni: 1
+                mac-address: aabb.ccdd.0000, aabb.ccdd.0000, aabb.ccdd.0000
+                micro-seg-vlan: 2468
+                ip-addresses:
+                - ip-addresses
+                - ip-addresses
+                dsc-interfaces:
+                - dsc-interfaces
+                - dsc-interfaces
+                network: network
+              - external-vlan: 327
+                vni: 1
+                mac-address: aabb.ccdd.0000, aabb.ccdd.0000, aabb.ccdd.0000
+                micro-seg-vlan: 2468
+                ip-addresses:
+                - ip-addresses
+                - ip-addresses
+                dsc-interfaces:
+                - dsc-interfaces
+                - dsc-interfaces
+                network: network
+              migration-timeout: 60s
+              host-name: host-name
+            status:
+              interfaces:
+              - external-vlan: 5
+                vni: 2
+                mac-address: mac-address
+                endpoint: endpoint
+                micro-seg-vlan: 5
+                ip-addresses:
+                - ip-addresses
+                - ip-addresses
+                dsc-interfaces:
+                - dsc-interfaces
+                - dsc-interfaces
+                network: network
+              - external-vlan: 5
+                vni: 2
+                mac-address: mac-address
+                endpoint: endpoint
+                micro-seg-vlan: 5
+                ip-addresses:
+                - ip-addresses
+                - ip-addresses
+                dsc-interfaces:
+                - dsc-interfaces
+                - dsc-interfaces
+                network: network
+              migration-status:
+                completed-at: 2000-01-23T04:56:07.000+00:00
+                stage: migration-none
+                started-at: 2000-01-23T04:56:07.000+00:00
+                status: none
+              mirror-sessions:
+              - mirror-sessions
+              - mirror-sessions
+              propagation-status:
+                dsc-status:
+                - dsc-id: dsc-id
+                  dsc-info-status: dsc-info-status
+                - dsc-id: dsc-id
+                  dsc-info-status: dsc-info-status
+                generation-id: generation-id
+                pending: 7
+                pending-dscs:
+                - pending-dscs
+                - pending-dscs
+                min-version: min-version
+                updated: 9
+                status: status
+              host-name: host-name
+        - type: type
+          object:
+            api-version: api-version
+            kind: kind
+            meta:
+              mod-time: 2000-01-23T04:56:07.000+00:00
+              generation-id: generation-id
+              resource-version: resource-version
+              creation-time: 2000-01-23T04:56:07.000+00:00
+              name: name
+              namespace: namespace
+              self-link: self-link
+              uuid: uuid
+              tenant: tenant
+              labels:
+                key: labels
+            spec:
+              interfaces:
+              - external-vlan: 327
+                vni: 1
+                mac-address: aabb.ccdd.0000, aabb.ccdd.0000, aabb.ccdd.0000
+                micro-seg-vlan: 2468
+                ip-addresses:
+                - ip-addresses
+                - ip-addresses
+                dsc-interfaces:
+                - dsc-interfaces
+                - dsc-interfaces
+                network: network
+              - external-vlan: 327
+                vni: 1
+                mac-address: aabb.ccdd.0000, aabb.ccdd.0000, aabb.ccdd.0000
+                micro-seg-vlan: 2468
+                ip-addresses:
+                - ip-addresses
+                - ip-addresses
+                dsc-interfaces:
+                - dsc-interfaces
+                - dsc-interfaces
+                network: network
+              migration-timeout: 60s
+              host-name: host-name
+            status:
+              interfaces:
+              - external-vlan: 5
+                vni: 2
+                mac-address: mac-address
+                endpoint: endpoint
+                micro-seg-vlan: 5
+                ip-addresses:
+                - ip-addresses
+                - ip-addresses
+                dsc-interfaces:
+                - dsc-interfaces
+                - dsc-interfaces
+                network: network
+              - external-vlan: 5
+                vni: 2
+                mac-address: mac-address
+                endpoint: endpoint
+                micro-seg-vlan: 5
+                ip-addresses:
+                - ip-addresses
+                - ip-addresses
+                dsc-interfaces:
+                - dsc-interfaces
+                - dsc-interfaces
+                network: network
+              migration-status:
+                completed-at: 2000-01-23T04:56:07.000+00:00
+                stage: migration-none
+                started-at: 2000-01-23T04:56:07.000+00:00
+                status: none
+              mirror-sessions:
+              - mirror-sessions
+              - mirror-sessions
+              propagation-status:
+                dsc-status:
+                - dsc-id: dsc-id
+                  dsc-info-status: dsc-info-status
+                - dsc-id: dsc-id
+                  dsc-info-status: dsc-info-status
+                generation-id: generation-id
+                pending: 7
+                pending-dscs:
+                - pending-dscs
+                - pending-dscs
+                min-version: min-version
+                updated: 9
+                status: status
+              host-name: host-name
+      properties:
+        events:
+          items:
+            $ref: '#/components/schemas/workloadAutoMsgWorkloadWatchHelperWatchEvent'
+          type: array
+      type: object
+    workloadAutoMsgWorkloadWatchHelperWatchEvent:
+      example:
+        type: type
+        object:
+          api-version: api-version
+          kind: kind
+          meta:
+            mod-time: 2000-01-23T04:56:07.000+00:00
+            generation-id: generation-id
+            resource-version: resource-version
+            creation-time: 2000-01-23T04:56:07.000+00:00
+            name: name
+            namespace: namespace
+            self-link: self-link
+            uuid: uuid
+            tenant: tenant
+            labels:
+              key: labels
+          spec:
+            interfaces:
+            - external-vlan: 327
+              vni: 1
+              mac-address: aabb.ccdd.0000, aabb.ccdd.0000, aabb.ccdd.0000
+              micro-seg-vlan: 2468
+              ip-addresses:
+              - ip-addresses
+              - ip-addresses
+              dsc-interfaces:
+              - dsc-interfaces
+              - dsc-interfaces
+              network: network
+            - external-vlan: 327
+              vni: 1
+              mac-address: aabb.ccdd.0000, aabb.ccdd.0000, aabb.ccdd.0000
+              micro-seg-vlan: 2468
+              ip-addresses:
+              - ip-addresses
+              - ip-addresses
+              dsc-interfaces:
+              - dsc-interfaces
+              - dsc-interfaces
+              network: network
+            migration-timeout: 60s
+            host-name: host-name
+          status:
+            interfaces:
+            - external-vlan: 5
+              vni: 2
+              mac-address: mac-address
+              endpoint: endpoint
+              micro-seg-vlan: 5
+              ip-addresses:
+              - ip-addresses
+              - ip-addresses
+              dsc-interfaces:
+              - dsc-interfaces
+              - dsc-interfaces
+              network: network
+            - external-vlan: 5
+              vni: 2
+              mac-address: mac-address
+              endpoint: endpoint
+              micro-seg-vlan: 5
+              ip-addresses:
+              - ip-addresses
+              - ip-addresses
+              dsc-interfaces:
+              - dsc-interfaces
+              - dsc-interfaces
+              network: network
+            migration-status:
+              completed-at: 2000-01-23T04:56:07.000+00:00
+              stage: migration-none
+              started-at: 2000-01-23T04:56:07.000+00:00
+              status: none
+            mirror-sessions:
+            - mirror-sessions
+            - mirror-sessions
+            propagation-status:
+              dsc-status:
+              - dsc-id: dsc-id
+                dsc-info-status: dsc-info-status
+              - dsc-id: dsc-id
+                dsc-info-status: dsc-info-status
+              generation-id: generation-id
+              pending: 7
+              pending-dscs:
+              - pending-dscs
+              - pending-dscs
+              min-version: min-version
+              updated: 9
+              status: status
+            host-name: host-name
+      properties:
+        object:
+          $ref: '#/components/schemas/workloadWorkload'
+        type:
+          type: string
+      type: object
+    workloadEndpoint:
+      description: Endpoint represents a network endpoint.
+      example:
+        api-version: api-version
+        kind: kind
+        meta:
+          mod-time: 2000-01-23T04:56:07.000+00:00
+          generation-id: generation-id
+          resource-version: resource-version
+          creation-time: 2000-01-23T04:56:07.000+00:00
+          name: name
+          namespace: namespace
+          self-link: self-link
+          uuid: uuid
+          tenant: tenant
+          labels:
+            key: labels
+        spec:
+          node-uuid-list:
+          - node-uuid-list
+          - node-uuid-list
+          node-uuid: node-uuid
+          homing-host-addr: homing-host-addr
+          type: l2
+          micro-segment-vlan: 0
+        status:
+          SecurityGroups:
+          - SecurityGroups
+          - SecurityGroups
+          ipv6-gateways:
+          - ipv6-gateways
+          - ipv6-gateways
+          mac-address: aabb.ccdd.0000, aabb.ccdd.0000, aabb.ccdd.0000
+          node-uuid: node-uuid
+          ipv4-gateway: ipv4-gateway
+          workload-name: workload-name
+          homing-host-addr: homing-host-addr
+          ipv6-address: ipv6-address
+          ipv6-addresses:
+          - ipv6-addresses
+          - ipv6-addresses
+          network: network
+          EndpointState: EndpointState
+          homing-host-name: homing-host-name
+          ipv4-addresses:
+          - ipv4-addresses
+          - ipv4-addresses
+          node-uuid-list:
+          - node-uuid-list
+          - node-uuid-list
+          ipv4-address: ipv4-address
+          ipv4-gateways:
+          - ipv4-gateways
+          - ipv4-gateways
+          mirror-sessions:
+          - mirror-sessions
+          - mirror-sessions
+          migration:
+            status: none
+          workload-attributes:
+            key: workload-attributes
+          workload-names:
+          - workload-names
+          - workload-names
+          ipv6-gateway: ipv6-gateway
+          micro-segment-vlan: 6
+      properties:
+        api-version:
+          type: string
+        kind:
+          type: string
+        meta:
+          $ref: '#/components/schemas/apiObjectMeta'
+        spec:
+          $ref: '#/components/schemas/workloadEndpointSpec'
+        status:
+          $ref: '#/components/schemas/workloadEndpointStatus'
+      type: object
+    workloadEndpointList:
+      description: EndpointList is a container object for list of Endpoint objects.
+      example:
+        api-version: api-version
+        list-meta:
+          resource-version: resource-version
+          total-count: 1
+        kind: kind
+        items:
+        - api-version: api-version
+          kind: kind
+          meta:
+            mod-time: 2000-01-23T04:56:07.000+00:00
+            generation-id: generation-id
+            resource-version: resource-version
+            creation-time: 2000-01-23T04:56:07.000+00:00
+            name: name
+            namespace: namespace
+            self-link: self-link
+            uuid: uuid
+            tenant: tenant
+            labels:
+              key: labels
+          spec:
+            node-uuid-list:
+            - node-uuid-list
+            - node-uuid-list
+            node-uuid: node-uuid
+            homing-host-addr: homing-host-addr
+            type: l2
+            micro-segment-vlan: 0
+          status:
+            SecurityGroups:
+            - SecurityGroups
+            - SecurityGroups
+            ipv6-gateways:
+            - ipv6-gateways
+            - ipv6-gateways
+            mac-address: aabb.ccdd.0000, aabb.ccdd.0000, aabb.ccdd.0000
+            node-uuid: node-uuid
+            ipv4-gateway: ipv4-gateway
+            workload-name: workload-name
+            homing-host-addr: homing-host-addr
+            ipv6-address: ipv6-address
+            ipv6-addresses:
+            - ipv6-addresses
+            - ipv6-addresses
+            network: network
+            EndpointState: EndpointState
+            homing-host-name: homing-host-name
+            ipv4-addresses:
+            - ipv4-addresses
+            - ipv4-addresses
+            node-uuid-list:
+            - node-uuid-list
+            - node-uuid-list
+            ipv4-address: ipv4-address
+            ipv4-gateways:
+            - ipv4-gateways
+            - ipv4-gateways
+            mirror-sessions:
+            - mirror-sessions
+            - mirror-sessions
+            migration:
+              status: none
+            workload-attributes:
+              key: workload-attributes
+            workload-names:
+            - workload-names
+            - workload-names
+            ipv6-gateway: ipv6-gateway
+            micro-segment-vlan: 6
+        - api-version: api-version
+          kind: kind
+          meta:
+            mod-time: 2000-01-23T04:56:07.000+00:00
+            generation-id: generation-id
+            resource-version: resource-version
+            creation-time: 2000-01-23T04:56:07.000+00:00
+            name: name
+            namespace: namespace
+            self-link: self-link
+            uuid: uuid
+            tenant: tenant
+            labels:
+              key: labels
+          spec:
+            node-uuid-list:
+            - node-uuid-list
+            - node-uuid-list
+            node-uuid: node-uuid
+            homing-host-addr: homing-host-addr
+            type: l2
+            micro-segment-vlan: 0
+          status:
+            SecurityGroups:
+            - SecurityGroups
+            - SecurityGroups
+            ipv6-gateways:
+            - ipv6-gateways
+            - ipv6-gateways
+            mac-address: aabb.ccdd.0000, aabb.ccdd.0000, aabb.ccdd.0000
+            node-uuid: node-uuid
+            ipv4-gateway: ipv4-gateway
+            workload-name: workload-name
+            homing-host-addr: homing-host-addr
+            ipv6-address: ipv6-address
+            ipv6-addresses:
+            - ipv6-addresses
+            - ipv6-addresses
+            network: network
+            EndpointState: EndpointState
+            homing-host-name: homing-host-name
+            ipv4-addresses:
+            - ipv4-addresses
+            - ipv4-addresses
+            node-uuid-list:
+            - node-uuid-list
+            - node-uuid-list
+            ipv4-address: ipv4-address
+            ipv4-gateways:
+            - ipv4-gateways
+            - ipv4-gateways
+            mirror-sessions:
+            - mirror-sessions
+            - mirror-sessions
+            migration:
+              status: none
+            workload-attributes:
+              key: workload-attributes
+            workload-names:
+            - workload-names
+            - workload-names
+            ipv6-gateway: ipv6-gateway
+            micro-segment-vlan: 6
+      properties:
+        api-version:
+          type: string
+        items:
+          description: List of Endpoint objects.
+          items:
+            $ref: '#/components/schemas/workloadEndpoint'
+          type: array
+        kind:
+          type: string
+        list-meta:
+          $ref: '#/components/schemas/apiListMeta'
+      type: object
+    workloadEndpointMigrationStatus:
+      example:
+        status: none
+      properties:
+        status:
+          default: none
+          description: Status of migration.
+          enum:
+          - none
+          - start
+          - final_sync
+          - done
+          - failed
+          - aborted
+          - from_non_pen_host
+          type: string
+          x-ui-hints:
+            done: Done
+            failed: Failed
+            final_sync: FinalSync
+            none: None
+            start: Start
+      type: object
+    workloadEndpointSpec:
+      description: spec part of Endpoint object.
+      example:
+        node-uuid-list:
+        - node-uuid-list
+        - node-uuid-list
+        node-uuid: node-uuid
+        homing-host-addr: homing-host-addr
+        type: l2
+        micro-segment-vlan: 0
+      properties:
+        homing-host-addr:
+          description: IP of the DSC where this endpoint exists.
+          type: string
+        micro-segment-vlan:
+          description: MicroSegmentVlan to be assigned to the endpoint.
+          format: int64
+          type: integer
+        node-uuid:
+          description: The DSC Name or MAC where the endpoint should reside.
+          type: string
+        node-uuid-list:
+          description: NodeUUIDList has the list of DSCs where a EP is supposed to
+            go to.
+          items:
+            type: string
+          type: array
+        type:
+          default: l2
+          description: Type is the type of Endpoint that is being created - L2 or
+            L3.
+          type: string
+      type: object
+    workloadEndpointStatus:
+      description: status part of Endpoint object.
+      example:
+        SecurityGroups:
+        - SecurityGroups
+        - SecurityGroups
+        ipv6-gateways:
+        - ipv6-gateways
+        - ipv6-gateways
+        mac-address: aabb.ccdd.0000, aabb.ccdd.0000, aabb.ccdd.0000
+        node-uuid: node-uuid
+        ipv4-gateway: ipv4-gateway
+        workload-name: workload-name
+        homing-host-addr: homing-host-addr
+        ipv6-address: ipv6-address
+        ipv6-addresses:
+        - ipv6-addresses
+        - ipv6-addresses
+        network: network
+        EndpointState: EndpointState
+        homing-host-name: homing-host-name
+        ipv4-addresses:
+        - ipv4-addresses
+        - ipv4-addresses
+        node-uuid-list:
+        - node-uuid-list
+        - node-uuid-list
+        ipv4-address: ipv4-address
+        ipv4-gateways:
+        - ipv4-gateways
+        - ipv4-gateways
+        mirror-sessions:
+        - mirror-sessions
+        - mirror-sessions
+        migration:
+          status: none
+        workload-attributes:
+          key: workload-attributes
+        workload-names:
+        - workload-names
+        - workload-names
+        ipv6-gateway: ipv6-gateway
+        micro-segment-vlan: 6
+      properties:
+        EndpointState:
+          description: endpoint FSM state.
+          type: string
+        SecurityGroups:
+          description: security groups.
+          items:
+            type: string
+          type: array
+        homing-host-addr:
+          description: host address of the host where this endpoint exists.
+          type: string
+        homing-host-name:
+          description: host name of the host where this endpoint exists.
+          type: string
+        ipv4-address:
+          description: IPv4 address of the endpoint.
+          type: string
+        ipv4-addresses:
+          description: IPv4 addresses of the endpoint.
+          items:
+            type: string
+          type: array
+        ipv4-gateway:
+          description: IPv4 gateway for the endpoint.
+          type: string
+        ipv4-gateways:
+          description: IPv4 gateways for the endpoint.
+          items:
+            type: string
+          type: array
+        ipv6-address:
+          description: IPv6 address for the endpoint.
+          type: string
+        ipv6-addresses:
+          description: IPv6 addresses for the endpoint.
+          items:
+            type: string
+          type: array
+        ipv6-gateway:
+          description: IPv6 gateway.
+          type: string
+        ipv6-gateways:
+          description: IPv6 gateways.
+          items:
+            type: string
+          type: array
+        mac-address:
+          description: Mac address of the endpoint. Should be a valid MAC address.
+          example: aabb.ccdd.0000, aabb.ccdd.0000, aabb.ccdd.0000
+          type: string
+        micro-segment-vlan:
+          description: micro-segment VLAN.
+          format: int64
+          type: integer
+        migration:
+          $ref: '#/components/schemas/workloadEndpointMigrationStatus'
+        mirror-sessions:
+          description: MirrorSessions list of mirror sessions enabled on this endpoint.
+          items:
+            type: string
+          type: array
+        network:
+          description: network this endpoint belogs to.
+          type: string
+        node-uuid:
+          description: homing host's UUID.
+          type: string
+        node-uuid-list:
+          description: NodeUUIDList has the list of DSCs where a EP is supposed to
+            go to.
+          items:
+            type: string
+          type: array
+        workload-attributes:
+          additionalProperties:
+            type: string
+          description: VM or container attribute/labels.
+          type: object
+        workload-name:
+          description: VM or container name.
+          type: string
+        workload-names:
+          description: WorkloadNames associated with endpoint.
+          items:
+            type: string
+          type: array
+      type: object
+    workloadWorkload:
+      description: Workload represents a VM, container/pod or Baremetal.
+      example:
+        api-version: api-version
+        kind: kind
+        meta:
+          mod-time: 2000-01-23T04:56:07.000+00:00
+          generation-id: generation-id
+          resource-version: resource-version
+          creation-time: 2000-01-23T04:56:07.000+00:00
+          name: name
+          namespace: namespace
+          self-link: self-link
+          uuid: uuid
+          tenant: tenant
+          labels:
+            key: labels
+        spec:
+          interfaces:
+          - external-vlan: 327
+            vni: 1
+            mac-address: aabb.ccdd.0000, aabb.ccdd.0000, aabb.ccdd.0000
+            micro-seg-vlan: 2468
+            ip-addresses:
+            - ip-addresses
+            - ip-addresses
+            dsc-interfaces:
+            - dsc-interfaces
+            - dsc-interfaces
+            network: network
+          - external-vlan: 327
+            vni: 1
+            mac-address: aabb.ccdd.0000, aabb.ccdd.0000, aabb.ccdd.0000
+            micro-seg-vlan: 2468
+            ip-addresses:
+            - ip-addresses
+            - ip-addresses
+            dsc-interfaces:
+            - dsc-interfaces
+            - dsc-interfaces
+            network: network
+          migration-timeout: 60s
+          host-name: host-name
+        status:
+          interfaces:
+          - external-vlan: 5
+            vni: 2
+            mac-address: mac-address
+            endpoint: endpoint
+            micro-seg-vlan: 5
+            ip-addresses:
+            - ip-addresses
+            - ip-addresses
+            dsc-interfaces:
+            - dsc-interfaces
+            - dsc-interfaces
+            network: network
+          - external-vlan: 5
+            vni: 2
+            mac-address: mac-address
+            endpoint: endpoint
+            micro-seg-vlan: 5
+            ip-addresses:
+            - ip-addresses
+            - ip-addresses
+            dsc-interfaces:
+            - dsc-interfaces
+            - dsc-interfaces
+            network: network
+          migration-status:
+            completed-at: 2000-01-23T04:56:07.000+00:00
+            stage: migration-none
+            started-at: 2000-01-23T04:56:07.000+00:00
+            status: none
+          mirror-sessions:
+          - mirror-sessions
+          - mirror-sessions
+          propagation-status:
+            dsc-status:
+            - dsc-id: dsc-id
+              dsc-info-status: dsc-info-status
+            - dsc-id: dsc-id
+              dsc-info-status: dsc-info-status
+            generation-id: generation-id
+            pending: 7
+            pending-dscs:
+            - pending-dscs
+            - pending-dscs
+            min-version: min-version
+            updated: 9
+            status: status
+          host-name: host-name
+      properties:
+        api-version:
+          type: string
+        kind:
+          type: string
+        meta:
+          $ref: '#/components/schemas/apiObjectMeta'
+        spec:
+          $ref: '#/components/schemas/workloadWorkloadSpec'
+        status:
+          $ref: '#/components/schemas/workloadWorkloadStatus'
+      type: object
+    workloadWorkloadIntfSpec:
+      description: Spec of a Workload interface.
+      example:
+        external-vlan: 327
+        vni: 1
+        mac-address: aabb.ccdd.0000, aabb.ccdd.0000, aabb.ccdd.0000
+        micro-seg-vlan: 2468
+        ip-addresses:
+        - ip-addresses
+        - ip-addresses
+        dsc-interfaces:
+        - dsc-interfaces
+        - dsc-interfaces
+        network: network
+      properties:
+        dsc-interfaces:
+          description: List of all DSC interfaces that can be used. The DSC interface
+            is identified using the MAC address assigned to the DSC port. If not specified,
+            DSCs from workload's host object are used.
+          items:
+            type: string
+          type: array
+        external-vlan:
+          description: External vlan assigned for this interface. Value should be
+            between 0 and 4095.
+          format: int64
+          maximum: 4095
+          minimum: 0
+          type: integer
+        ip-addresses:
+          description: List of all IP addresses configured on a Workload Interface.
+          items:
+            type: string
+          type: array
+        mac-address:
+          description: MACAddress contains the MAC address of the interface as seen
+            by the workload. Should be a valid MAC address.
+          example: aabb.ccdd.0000, aabb.ccdd.0000, aabb.ccdd.0000
+          type: string
+        micro-seg-vlan:
+          description: Micro-segmentation vlan assigned for this interface. Value
+            should be between 0 and 4095.
+          format: int64
+          maximum: 4095
+          minimum: 0
+          type: integer
+        network:
+          description: Network this interface will belong to.
+          type: string
+        vni:
+          description: vni is network identifier when the interface uses tunneling
+            protocols, 0 = not used.
+          format: int64
+          type: integer
+      type: object
+    workloadWorkloadIntfStatus:
+      description: Status of a Workload interface.
+      example:
+        external-vlan: 5
+        vni: 2
+        mac-address: mac-address
+        endpoint: endpoint
+        micro-seg-vlan: 5
+        ip-addresses:
+        - ip-addresses
+        - ip-addresses
+        dsc-interfaces:
+        - dsc-interfaces
+        - dsc-interfaces
+        network: network
+      properties:
+        dsc-interfaces:
+          description: List of all DSC interfaces that can be used. The DSC interface
+            is identified using the MAC address assigned to the DSC port.
+          items:
+            type: string
+          type: array
+        endpoint:
+          description: Endpoint associated with this Workload interface.
+          type: string
+        external-vlan:
+          description: External vlan assigned for this interface.
+          format: int64
+          type: integer
+        ip-addresses:
+          description: List of all IP addresses configured and discovered on a Workload
+            Interface.
+          items:
+            type: string
+          type: array
+        mac-address:
+          description: MACAddress contains the MAC address of the interface as seen
+            by the workload.
+          type: string
+        micro-seg-vlan:
+          description: Micro-segmentation vlan used by this interface.
+          format: int64
+          type: integer
+        network:
+          description: Network this interface belongs to.
+          type: string
+        vni:
+          description: vni is network identifier when the interface uses tunneling
+            protocols, 0 = not used.
+          format: int64
+          type: integer
+      type: object
+    workloadWorkloadList:
+      description: WorkloadList is a container object for list of Workload objects.
+      example:
+        api-version: api-version
+        list-meta:
+          resource-version: resource-version
+          total-count: 1
+        kind: kind
+        items:
+        - api-version: api-version
+          kind: kind
+          meta:
+            mod-time: 2000-01-23T04:56:07.000+00:00
+            generation-id: generation-id
+            resource-version: resource-version
+            creation-time: 2000-01-23T04:56:07.000+00:00
+            name: name
+            namespace: namespace
+            self-link: self-link
+            uuid: uuid
+            tenant: tenant
+            labels:
+              key: labels
+          spec:
+            interfaces:
+            - external-vlan: 327
+              vni: 1
+              mac-address: aabb.ccdd.0000, aabb.ccdd.0000, aabb.ccdd.0000
+              micro-seg-vlan: 2468
+              ip-addresses:
+              - ip-addresses
+              - ip-addresses
+              dsc-interfaces:
+              - dsc-interfaces
+              - dsc-interfaces
+              network: network
+            - external-vlan: 327
+              vni: 1
+              mac-address: aabb.ccdd.0000, aabb.ccdd.0000, aabb.ccdd.0000
+              micro-seg-vlan: 2468
+              ip-addresses:
+              - ip-addresses
+              - ip-addresses
+              dsc-interfaces:
+              - dsc-interfaces
+              - dsc-interfaces
+              network: network
+            migration-timeout: 60s
+            host-name: host-name
+          status:
+            interfaces:
+            - external-vlan: 5
+              vni: 2
+              mac-address: mac-address
+              endpoint: endpoint
+              micro-seg-vlan: 5
+              ip-addresses:
+              - ip-addresses
+              - ip-addresses
+              dsc-interfaces:
+              - dsc-interfaces
+              - dsc-interfaces
+              network: network
+            - external-vlan: 5
+              vni: 2
+              mac-address: mac-address
+              endpoint: endpoint
+              micro-seg-vlan: 5
+              ip-addresses:
+              - ip-addresses
+              - ip-addresses
+              dsc-interfaces:
+              - dsc-interfaces
+              - dsc-interfaces
+              network: network
+            migration-status:
+              completed-at: 2000-01-23T04:56:07.000+00:00
+              stage: migration-none
+              started-at: 2000-01-23T04:56:07.000+00:00
+              status: none
+            mirror-sessions:
+            - mirror-sessions
+            - mirror-sessions
+            propagation-status:
+              dsc-status:
+              - dsc-id: dsc-id
+                dsc-info-status: dsc-info-status
+              - dsc-id: dsc-id
+                dsc-info-status: dsc-info-status
+              generation-id: generation-id
+              pending: 7
+              pending-dscs:
+              - pending-dscs
+              - pending-dscs
+              min-version: min-version
+              updated: 9
+              status: status
+            host-name: host-name
+        - api-version: api-version
+          kind: kind
+          meta:
+            mod-time: 2000-01-23T04:56:07.000+00:00
+            generation-id: generation-id
+            resource-version: resource-version
+            creation-time: 2000-01-23T04:56:07.000+00:00
+            name: name
+            namespace: namespace
+            self-link: self-link
+            uuid: uuid
+            tenant: tenant
+            labels:
+              key: labels
+          spec:
+            interfaces:
+            - external-vlan: 327
+              vni: 1
+              mac-address: aabb.ccdd.0000, aabb.ccdd.0000, aabb.ccdd.0000
+              micro-seg-vlan: 2468
+              ip-addresses:
+              - ip-addresses
+              - ip-addresses
+              dsc-interfaces:
+              - dsc-interfaces
+              - dsc-interfaces
+              network: network
+            - external-vlan: 327
+              vni: 1
+              mac-address: aabb.ccdd.0000, aabb.ccdd.0000, aabb.ccdd.0000
+              micro-seg-vlan: 2468
+              ip-addresses:
+              - ip-addresses
+              - ip-addresses
+              dsc-interfaces:
+              - dsc-interfaces
+              - dsc-interfaces
+              network: network
+            migration-timeout: 60s
+            host-name: host-name
+          status:
+            interfaces:
+            - external-vlan: 5
+              vni: 2
+              mac-address: mac-address
+              endpoint: endpoint
+              micro-seg-vlan: 5
+              ip-addresses:
+              - ip-addresses
+              - ip-addresses
+              dsc-interfaces:
+              - dsc-interfaces
+              - dsc-interfaces
+              network: network
+            - external-vlan: 5
+              vni: 2
+              mac-address: mac-address
+              endpoint: endpoint
+              micro-seg-vlan: 5
+              ip-addresses:
+              - ip-addresses
+              - ip-addresses
+              dsc-interfaces:
+              - dsc-interfaces
+              - dsc-interfaces
+              network: network
+            migration-status:
+              completed-at: 2000-01-23T04:56:07.000+00:00
+              stage: migration-none
+              started-at: 2000-01-23T04:56:07.000+00:00
+              status: none
+            mirror-sessions:
+            - mirror-sessions
+            - mirror-sessions
+            propagation-status:
+              dsc-status:
+              - dsc-id: dsc-id
+                dsc-info-status: dsc-info-status
+              - dsc-id: dsc-id
+                dsc-info-status: dsc-info-status
+              generation-id: generation-id
+              pending: 7
+              pending-dscs:
+              - pending-dscs
+              - pending-dscs
+              min-version: min-version
+              updated: 9
+              status: status
+            host-name: host-name
+      properties:
+        api-version:
+          type: string
+        items:
+          description: List of Workload objects.
+          items:
+            $ref: '#/components/schemas/workloadWorkload'
+          type: array
+        kind:
+          type: string
+        list-meta:
+          $ref: '#/components/schemas/apiListMeta'
+      type: object
+    workloadWorkloadMigrationStatus:
+      example:
+        completed-at: 2000-01-23T04:56:07.000+00:00
+        stage: migration-none
+        started-at: 2000-01-23T04:56:07.000+00:00
+        status: none
+      properties:
+        completed-at:
+          description: migration completion time.
+          format: date-time
+          type: string
+        stage:
+          default: migration-none
+          description: Controller's migration stage.
+          enum:
+          - migration-none
+          - migration-start
+          - migration-final-sync
+          - migration-done
+          - migration-abort
+          - migration-from-non-pen-host
+          type: string
+        started-at:
+          description: migration start time.
+          format: date-time
+          type: string
+        status:
+          default: none
+          description: The status from the dataplane performing migration.
+          enum:
+          - none
+          - started
+          - done
+          - failed
+          - timed-out
+          type: string
+      type: object
+    workloadWorkloadSpec:
+      description: Spec part of Workload object.
+      example:
+        interfaces:
+        - external-vlan: 327
+          vni: 1
+          mac-address: aabb.ccdd.0000, aabb.ccdd.0000, aabb.ccdd.0000
+          micro-seg-vlan: 2468
+          ip-addresses:
+          - ip-addresses
+          - ip-addresses
+          dsc-interfaces:
+          - dsc-interfaces
+          - dsc-interfaces
+          network: network
+        - external-vlan: 327
+          vni: 1
+          mac-address: aabb.ccdd.0000, aabb.ccdd.0000, aabb.ccdd.0000
+          micro-seg-vlan: 2468
+          ip-addresses:
+          - ip-addresses
+          - ip-addresses
+          dsc-interfaces:
+          - dsc-interfaces
+          - dsc-interfaces
+          network: network
+        migration-timeout: 60s
+        host-name: host-name
+      properties:
+        host-name:
+          description: Hostname of the server where the workload should be running.
+          type: string
+        interfaces:
+          description: Spec of all interfaces in the Workload identified by Primary
+            MAC.
+          items:
+            $ref: '#/components/schemas/workloadWorkloadIntfSpec'
+          type: array
+        migration-timeout:
+          default: 3m
+          description: Should be a valid time duration.
+          example: 60s
+          type: string
+      type: object
+    workloadWorkloadStatus:
+      description: Status part of Workload object.
+      example:
+        interfaces:
+        - external-vlan: 5
+          vni: 2
+          mac-address: mac-address
+          endpoint: endpoint
+          micro-seg-vlan: 5
+          ip-addresses:
+          - ip-addresses
+          - ip-addresses
+          dsc-interfaces:
+          - dsc-interfaces
+          - dsc-interfaces
+          network: network
+        - external-vlan: 5
+          vni: 2
+          mac-address: mac-address
+          endpoint: endpoint
+          micro-seg-vlan: 5
+          ip-addresses:
+          - ip-addresses
+          - ip-addresses
+          dsc-interfaces:
+          - dsc-interfaces
+          - dsc-interfaces
+          network: network
+        migration-status:
+          completed-at: 2000-01-23T04:56:07.000+00:00
+          stage: migration-none
+          started-at: 2000-01-23T04:56:07.000+00:00
+          status: none
+        mirror-sessions:
+        - mirror-sessions
+        - mirror-sessions
+        propagation-status:
+          dsc-status:
+          - dsc-id: dsc-id
+            dsc-info-status: dsc-info-status
+          - dsc-id: dsc-id
+            dsc-info-status: dsc-info-status
+          generation-id: generation-id
+          pending: 7
+          pending-dscs:
+          - pending-dscs
+          - pending-dscs
+          min-version: min-version
+          updated: 9
+          status: status
+        host-name: host-name
+      properties:
+        host-name:
+          description: Hostname of the server where the workload is currently running.
+          type: string
+        interfaces:
+          description: Status of all interfaces in the Workload identified by Primary
+            MAC.
+          items:
+            $ref: '#/components/schemas/workloadWorkloadIntfStatus'
+          type: array
+        migration-status:
+          $ref: '#/components/schemas/workloadWorkloadMigrationStatus'
+        mirror-sessions:
+          description: MirrorSessions list of mirror sessions enabled on this workload.
+          items:
+            type: string
+          type: array
+        propagation-status:
+          $ref: '#/components/schemas/securityPropagationStatus'
+      type: object
+x-original-swagger-version: "2.0"
